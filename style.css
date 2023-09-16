@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap");
+
+*,
+*::after,
+*::before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:root {
+  --cell-size: 100px;
+  --x-color: rgb(255, 95, 71);
+  --circle-color: rgb(66, 214, 237);
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+}
+
+.header > h1 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 0;
+  margin-top: 40px;
+  font-size: 40px;
+}
+@media (max-width: 390px) {
+  .header > h1 {
+    font-size: 30px;
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+  }
+}
+
+.header > h1 > span:nth-child(odd) {
+  color: var(--x-color);
+}
+.header > h1 > span:nth-child(even) {
+  color: var(--circle-color);
+}
+
+.border {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: 1px solid black;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: not-allowed;
+}
+
+.cell:not(.x):not(.circle) {
+  cursor: pointer;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+/* Using a formula (an + b). Description: a represents a cycle size, n is a counter (starts at 0), and b is an offset value. */
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
+
+.cell:last-child,
+.cell:nth-child(7),
+.cell:nth-child(8) {
+  border-bottom: none;
+}
+
+.cell.x::after,
+.cell.x::before,
+.border.x .cell:not(.x):not(.circle):hover::after,
+.border.x .cell:not(.x):not(.circle):hover::before {
+  content: "";
+  position: absolute;
+  width: calc(var(--cell-size) * 0.15);
+  height: calc(var(--cell-size) * 0.9);
+  background-color: var(--x-color);
+}
+
+.border.x .cell:not(.x):not(.circle):hover::after,
+.border.x .cell:not(.x):not(.circle):hover::before {
+  background-color: lightgray;
+}
+
+.cell.x::after,
+.border.x .cell:hover::after {
+  transform: rotate(45deg);
+}
+.cell.x::before,
+.border.x .cell:hover::before {
+  transform: rotate(-45deg);
+}
+
+.cell.circle::after,
+.cell.circle::before,
+.border.circle .cell:not(.x):not(.circle):hover::after,
+.border.circle .cell:not(.x):not(.circle):hover::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+.cell.circle::before,
+.border.circle .cell:not(.x):not(.circle):hover::before {
+  width: calc(var(--cell-size) * 0.9);
+  height: calc(var(--cell-size) * 0.9);
+  background-color: var(--circle-color);
+}
+
+.border.circle .cell:not(.x):not(.circle):hover::before {
+  background-color: lightgray;
+}
+
+.cell.circle::after,
+.border.circle .cell:not(.x):not(.circle):hover::after {
+  width: calc(var(--cell-size) * 0.7);
+  height: calc(var(--cell-size) * 0.7);
+  background-color: white;
+}
+
+.winning-msg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  flex-direction: column;
+  font-size: 50px;
+  display: none;
+}
+
+.winning-msg.show {
+  display: flex;
+}
+
+.winning-msg > div {
+  margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.winning-msg > button {
+  padding: 10px 20px;
+  font-size: 25px;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+}
+
+.winning-msg > button:hover {
+  color: white;
+  background-color: black;
+}
+.footer > p {
+  position: absolute;
+  margin: 0;
+  bottom: 50px;
+  right: 20px;
+  font-size: 20px;
+}
+
+.footer > p > span {
+  font-weight: bold;
+  color: var(--x-color);
+}
+@media (max-width: 390px) {
+  .footer > p {
+    font-size: 18px;
+  }
+}
